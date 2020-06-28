@@ -226,6 +226,8 @@
 
     $('#clear').click(function(){
       context.clearRect(0, 0, canvas.width, canvas.height);
+      g=0;
+      context.strokeStyle = '#0000FF';
       $('#number').html('');
     });
     $('#green').click(function(){
