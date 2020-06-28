@@ -11,8 +11,10 @@
         margin-top: 15px;
         padding: 10px;
         font-size: 30px;
-        background-color:rosybrown;
-        font-family: "Times New Roman";
+        background-color:rgb(188, 195, 188);
+        font-family: "Comic Sans MS",monospace;
+        color: blue;
+        font-variant: small-caps;
         text-align: center;
       }
       h2 {
@@ -23,28 +25,63 @@
         text-align: center;
       }
       #paint {
-        border:2px solid black;
+        border:2px solid rgb(0, 0, 0);
         background-color:black;
-        margin-top: 20px;
         margin: auto;
       }
       #predicted { 
         font-size: 30px;
-        margin-top: 20px;
+        font-variant: small-caps;
+        color: blue;
+        margin-top: 40px;
         text-align: center;
       }
       #number {
         border: 2px solid black;
+        background-color:#43A6C6;
         margin: auto;
         margin-top:20px;
         vertical-align: middle;
-        width: 600px;
+        width: 800px;
       }
       #clear {
         margin: auto;
-        margin-top: 20px;
+        margin-top: 24px;
         padding: 20px;
-        background-color:rosybrown;
+        background-color:linen;
+        text-align: center;
+      }
+      #green {
+        margin: auto;
+        margin-top: 5px;
+        position: absolute;
+        left: 44.8%;
+        padding: 10px;
+        background-color:green;
+      }
+      #blue {
+        margin: auto;
+        margin-top: 5px;
+        padding: 10px;
+        position: absolute;
+        left: 48.8%;
+        background-color:blue;
+      }
+      #red {
+        margin: auto;
+        margin-top: 5px;
+        padding: 10px;
+        position: absolute;
+        left: 52.8%;
+        background-color:red;
+      }
+      #erase {
+        margin: auto;
+        margin-top: 5px;
+        padding: 0.8%;
+        position: absolute;
+        left: 47.4%;
+        background-color:white;
         text-align: center;
       }
     </style>
@@ -53,36 +90,36 @@
     <!--<script type="text/javascript" src="http://livejs.com/live.js"></script>-->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2/dist/tf.min.js"></script>
-    <h1><i>Recognition WebApp</i></h1>
-    
+    <h1>Recognition WebApp</h1>
+      
     <div id="paint">
       <canvas id="myCanvas"></canvas>
     </div>
+    <button id="green" ></button>
+      <button id="blue" ></button>
+      <button id="red"></button>
+      <br><br>
+      <button id="erase">Erase</button>
+      <br>
     <div id="predicted">
-      <i>Recogonized Thing!</i>
+      Recogonized Thing!
       <div id="number"></div>
+      
       <button id="clear">Clear</button>
+      
     </div>
     <script>
-
-
+    g=0;
     var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile) {
-      $('#paint').css({'width': '80%','height': '1200px'});
+      $('#paint').css({'width': '80%','height': '600px'});
       $('#number').css({'width': '80%','height': '140px', 'font-size': '120px'});
       $('#clear').css({'font-size': '50px'});
     } else {
-      $('#paint').css({'width': '400px'});
-      $('#number').css({ 'font-size': '120px'});
+      $('#paint').css({'width': '400px','height': '400px'});
+      $('#number').css({ 'font-size': '120px','height': '140px'});
       $('#clear').css({'font-size': '35px'});
     }
-    if(!isMobile)
-    {var cw = $('#paint').width();
-    $('#paint').css({'height': cw + 'px'});
-
-    cw = $('#number').width();
-    $('#number').css({'height': '140px'});}
-
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
 
@@ -106,22 +143,22 @@
       context.moveTo(mouse.x, mouse.y);
       context.beginPath();
       canvas.addEventListener('mousemove', onPaint, false);
-    }, false);
+      }, false);
 
     canvas.addEventListener('mouseup', function() {
       $('#number').html('<img id="spinner" src="spinner.gif"/>');
       canvas.removeEventListener('mousemove', onPaint, false);
       var img = new Image();
+      img.src = canvas.toDataURL('image/png');
       img.onload = function() {
         context.drawImage(img, 0, 0, 28, 28);
         data = context.getImageData(0, 0, 28, 28).data;
         var input = [];
         for(var i = 0; i < data.length; i += 4) {
-          input.push(data[i + 2] / 255);
+          input.push((data[i+2-g])>0?1:0);
         }
         predict(input);
       };
-      img.src = canvas.toDataURL('image/png');
     }, false);
 
     var onPaint = function() {
@@ -132,7 +169,7 @@
     tf.loadLayersModel('model/model.json').then(function(model) {
       window.model = model;
     });
-
+    //MOBILE 
     canvas.addEventListener('touchstart', function (e) {
       var touch = e.touches[0];
       canvas.dispatchEvent(new MouseEvent('mousedown', {
@@ -168,6 +205,24 @@
     $('#clear').click(function(){
       context.clearRect(0, 0, canvas.width, canvas.height);
       $('#number').html('');
+    });
+    $('#green').click(function(){
+      g=1;
+      context.strokeStyle = '#00FF00';
+    });
+    $('#blue').click(function(){
+      g=0;
+      context.strokeStyle = '#0000FF';
+    });
+    $('#red').click(function(){
+      g=2;
+      context.strokeStyle = '#FF0000';
+    });
+    $('#yellow').click(function(){
+      context.strokeStyle = 'yellow';
+    });
+    $('#erase').click(function(){
+      context.strokeStyle = 'black';
     });
     </script>
   </body>
