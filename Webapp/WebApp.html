@@ -8,7 +8,7 @@
         font-family: "Times New Roman";
       }
       h1 {
-        margin-top: 20px;
+        margin-top: 15px;
         padding: 10px;
         font-size: 30px;
         background-color:rosybrown;
@@ -36,13 +36,13 @@
       #number {
         border: 2px solid black;
         margin: auto;
-        margin-top:40px;
+        margin-top:20px;
         vertical-align: middle;
-        width: 500px;
+        width: 600px;
       }
       #clear {
         margin: auto;
-        margin-top: 40px;
+        margin-top: 20px;
         padding: 20px;
         background-color:rosybrown;
         text-align: center;
@@ -72,7 +72,7 @@
       $('#number').css({'width': '80%','height': '140px', 'font-size': '120px'});
       $('#clear').css({'font-size': '50px'});
     } else {
-      $('#paint').css({'width': '350px'});
+      $('#paint').css({'width': '400px'});
       $('#number').css({ 'font-size': '120px'});
       $('#clear').css({'font-size': '35px'});
     }
@@ -152,7 +152,7 @@
     }, false);
 
     var predict = function(input) {
-      var cars = ["","fan","","CAT","","CAMEL", "", "bicycle","camera","bulb","hand","","eyeglasses","ladder"];
+      var cars = ["","fan","","CAT","","CAMEL", "bulb", "bicycle","camera","bulb","hand","","eyeglasses","ladder"];
       if (window.model) {
         window.model.predict([tf.tensor(input).reshape([1, 1, 28, 28])]).array().then(function(scores){
           scores = scores[0];
