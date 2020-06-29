@@ -1,9 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
     <title>Recognition WebApp</title>
     <style>
       body {
+        overflow-y : auto;
+        overflow-x : auto;
         touch-action: none; 
 
     background-image: url('index2.jpg');
@@ -11,12 +14,34 @@
         position: relative;
       }
       #paint {
+        position: relative;
+        display: block;
         background-color: black;
         border:2px solid rgb(0, 0, 0);
-        margin: auto;
-        margin-top: 10px;
+        position: relative;
+        margin:0 auto;
+        margin-top: -52px;
+        margin-bottom: -360px;
         border-radius: 25px;
       }
+      #paint1 {
+        display: block;
+        border:2px solid rgb(0, 0, 0);
+       
+        margin-right: 50px;
+        margin-bottom: 0px;
+        border-radius: 25px;
+        padding: 10px;
+      }
+      #paint2 {
+        display: inline-block;
+        border:2px solid rgb(0, 0, 0);
+        margin-top: -76px;
+        margin-bottom: 15px;
+        border-radius: 25px;
+        padding: 10px;
+      }
+      
       #predicted { 
         font-size: 30px;
         border-radius: 5px;
@@ -25,7 +50,7 @@
         background-image: url("index4.jpg");
         margin: auto;
         color: white;
-        margin-top: 40px;
+        margin-top: 13px;
         width: 400px;
         text-align: center;
       }
@@ -47,52 +72,53 @@
         border: 2px solid black;
         margin: auto;
         margin-top:20px;
+        font-size: medium;
         font-variant: small-caps;
         text-align: center;
         width: 400px;
-        height:76px;
+        height:10%;
       }
       #clear {
+        display: block;
         margin: auto;
         border-radius: 10px;
         margin-top: 20px;
         padding: 10px;
         background-color:linen;
         text-align: center;
-        position: absolute;
-        left: 46%;;
+        
+      }
+      #rbg{
+        border-radius: 10px;
+        margin-top: -575px;
+        display: block;
+        border: solid 2px black;
+        height: 30px;
+        width: 100px;
+        margin:0 auto;
+        text-align: center;
       }
       #green {
-        margin-top: 5px;
         border-radius: 10px;
-        position: absolute;
-        left: 52.8%;
         padding: 10px;
         background-color:green;
       }
       #blue {
-        margin-top: 5px;
-        position: absolute;;
         border-radius: 10px;
         padding: 10px;
-        left: 48.8%;
         background-color:blue;
       }
       #red {
-        margin-top: 5px;
         padding: 10px;
         border-radius: 10px;
-        position: absolute;
-        left: 44.8%;
         background-color:red;
       }
       #erase {
+        display: block;
         border-radius: 10px;
-        margin: auto;
-        margin-top: 5px;
+        margin:0 auto;
         padding: 0.5%;
-        position: absolute;
-        left: 47.4%;
+        margin-top: -3 px;
         background-color:white;
         text-align: center;
       }
@@ -108,21 +134,37 @@
     <!--<script type="text/javascript" src="http://livejs.com/live.js"></script>-->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2/dist/tf.min.js"></script>
-    
     <div id="heading"><h1>Recognition WebApp</h1></div>
-      <br>
+    <div id="paint2"><b>
+      <p>Made by: Ashutosh Khandelwal</p>
+      <p>Pursing B.tech in ECE from NIT Calicut</p></b>
+    </div>
     <div id="paint">
       <canvas id="myCanvas"></canvas>
     </div>
-    
-
-    <button id="blue" ></button>    
+    <div id="paint1">
+      <p><b>This is AI based web application made using CNN (Deep learning) algorithm. It can detect the following elements.
+      </p>>
+      <ol>
+        <li>Camel</li>
+        <li>Ladder</li>
+        <li>Fan</li>
+        <li>Camera</li>
+        <li>Cat</li>
+        <li>Car</li>
+        <li>Bicycle</li>
+        <li>Bulb</li>
+        <li>Hand</li></b>
+      </ol>>
+    </div>
+<div id="rbg">
+    <button id="blue" ></button>   
       <button id="red"></button>
 
       <button id="green" ></button>
-      <br><br>
-      <button id="erase">Erase</button>
+      <br><br></div>
       <br>
+      <button id="erase">Erase</button>
     <div id="predicted">
       Recogonized Thing!</div>
       <div id="number"></div>
@@ -131,14 +173,19 @@
       
     
     <script>
+    alert("Do not use combination of Colours in Canvas");
     g=0;
     var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile) {
-      $('#paint').css({'width': '80%','height': '600px'});
-      $('#number').css({'width': '80%','height': '140px', 'font-size': '120px'});
-      $('#clear').css({'font-size': '50px'});
+      $('#paint').css({'width': '400px','height': '400px'});
+      $('#paint1').css({'width': '12.2%','height': '50%'});
+      $('#paint2').css({'width': '12.2%','height': '125px'});
+      $('#number').css({ 'font-size': '120px','height': '140px'});
+      $('#clear').css({'font-size': '35px'});
     } else {
       $('#paint').css({'width': '400px','height': '400px'});
+      $('#paint1').css({'width': '12.2%','height': '50%'});
+      $('#paint2').css({'width': '12.2%','height': '125px'});
       $('#number').css({ 'font-size': '120px','height': '140px'});
       $('#clear').css({'font-size': '35px'});
     }
@@ -160,7 +207,6 @@
       mouse.x = e.pageX - offsetX;
       mouse.y = e.pageY - offsetY;
     }, false);
-
 
     context.lineWidth = isMobile ? 10 : 5;
     context.lineJoin = 'round';
@@ -217,7 +263,7 @@
     }, false);
 
     var predict = function(input) {
-      var cars = ["","fan","","CAT","","CAMEL", "bulb", "bicycle","camera","bulb","hand","","eyeglasses","ladder"];
+      var cars = ["","fan","","CAT","","CAMEL", "bulb", "bicycle","camera","bulb","hand","","car","ladder"];
       if (window.model) {
         window.model.predict([tf.tensor(input).reshape([1, 1, 28, 28])]).array().then(function(scores){
           scores = scores[0];
@@ -232,8 +278,8 @@
 
     $('#clear').click(function(){
       context.clearRect(0, 0, canvas.width, canvas.height);
-      g=0;
       context.strokeStyle = '#0000FF';
+      g=0;
       $('#number').html('');
     });
     $('#green').click(function(){
