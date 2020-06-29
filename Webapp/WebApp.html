@@ -149,12 +149,18 @@
     canvas.width = parseInt(compuetedStyle.getPropertyValue('width'));
     canvas.height = parseInt(compuetedStyle.getPropertyValue('height'));
 
+    var BB=canvas.getBoundingClientRect();
+    var offsetX=BB.left;
+    var offsetY=BB.top;        
+
+
     var mouse = {x: 0, y: 0};
 
     canvas.addEventListener('mousemove', function(e) {
-      mouse.x = e.pageX - this.offsetLeft;
-      mouse.y = e.pageY - this.offsetTop;
+      mouse.x = e.pageX - offsetX;
+      mouse.y = e.pageY - offsetY;
     }, false);
+
 
     context.lineWidth = isMobile ? 10 : 5;
     context.lineJoin = 'round';
