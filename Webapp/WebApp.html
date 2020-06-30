@@ -36,7 +36,7 @@
       #paint2 {
         display: inline-block;
         border:2px solid rgb(0, 0, 0);
-        margin-top: -76px;
+        margin-top: -80px;
         margin-bottom: 15px;
         border-radius: 25px;
         padding: 10px;
@@ -143,18 +143,19 @@
       <canvas id="myCanvas"></canvas>
     </div>
     <div id="paint1">
-      <p><b>This is AI based web application made using CNN (Deep learning) algorithm. It can detect the following elements.
+      <p><b>This is AI based web application made using CNN (Deep learning) algorithm. It can detect the following elements:
       </p>>
       <ol>
-        <li>Camel</li>
-        <li>Ladder</li>
-        <li>Fan</li>
-        <li>Camera</li>
-        <li>Cat</li>
-        <li>Car</li>
-        <li>Bicycle</li>
-        <li>Bulb</li>
-        <li>Hand</li></b>
+        <a href="camel.html" target="blank"><li>Camel</li></a>
+        <a href="ladder.html" target="blank"><li>Ladder</li></a>
+        <a href="fan.html" target="blank"><li>Fan</li></a>
+        <a href="camera.html" target="blank"><li>Camera</li></a>
+        <a href="cat.html" target="blank"><li>Cat</li></a>
+        <a href="car.html" target="blank"><li>Car</li></a>
+        <a href="bicycle.html" target="blank"><li>Bicycle</li></a>
+        <a href="bulb.html" target="blank"><li>Bulb</li></a>
+        <a href="hand.html" target="blank"><li>Hand</li></a>
+      </b>
       </ol>>
     </div>
 <div id="rbg">
@@ -173,7 +174,6 @@
       
     
     <script>
-    alert("Do not use combination of Colours in Canvas");
     g=0;
     var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile) {
@@ -184,11 +184,20 @@
       $('#clear').css({'font-size': '35px'});
     } else {
       $('#paint').css({'width': '400px','height': '400px'});
-      $('#paint1').css({'width': '12.2%','height': '50%'});
-      $('#paint2').css({'width': '12.2%','height': '125px'});
+      $('#paint1').css({'width': '11.7%','height': '50%'});
+      $('#paint2').css({'width': '11.7%','height': '125px'});
       $('#number').css({ 'font-size': '120px','height': '140px'});
       $('#clear').css({'font-size': '35px'});
     }
+    var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+    if (isChrome && !isMobile) {
+      $('#paint').css({'width': '400px','height': '400px'});
+      $('#paint1').css({'width': '11.7%','height': '50%'});
+      $('#paint2').css({'width': '11.7%','height': '125px'});
+      $('#number').css({ 'font-size': '120px','height': '140px'});
+      $('#clear').css({'font-size': '35px'});
+    }
+    alert("Do not use combination of Colours in Canvas");
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
 
