@@ -189,14 +189,6 @@
       $('#number').css({ 'font-size': '120px','height': '140px'});
       $('#clear').css({'font-size': '35px'});
     }
-    var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-    if (isChrome and !isMobile) {
-      $('#paint').css({'width': '400px','height': '400px'});
-      $('#paint1').css({'width': '11.7%','height': '50%'});
-      $('#paint2').css({'width': '11.7%','height': '125px'});
-      $('#number').css({ 'font-size': '120px','height': '140px'});
-      $('#clear').css({'font-size': '35px'});
-    }
     alert("Do not use combination of Colours in Canvas");
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
