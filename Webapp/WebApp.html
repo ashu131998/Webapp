@@ -183,11 +183,11 @@
       $('#number').css({ 'font-size': '120px','height': '140px'});
       $('#clear').css({'font-size': '35px'});
     } else {
-      $('#paint').css({'width': '400px','height': '400px','display'='block'});
-      $('#paint1').css({'width': '11.7%','height': '50%','display'='block'});
-      $('#paint2').css({'width': '11.7%','height': '125px','display'='block,});
-      $('#number').css({ 'font-size': '120px','height': '140px','display'='block'});
-      $('#clear').css({'font-size': '35px','display'='block'});
+      $('#paint').css({'position':'relative','width': '400px','height': '400px','display'='block'});
+      $('#paint1').css({'position':'relative','width': '11.7%','height': '50%','display'='block'});
+      $('#paint2').css({'position':'relative','width': '11.7%','height': '125px','display'='block,});
+      $('#number').css({ 'position':'relative','font-size': '120px','height': '140px','display'='block'});
+      $('#clear').css({'position':'relative','font-size': '35px','display'='block'});
     }
     var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
     if (isChrome) {
