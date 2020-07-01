@@ -190,7 +190,7 @@
       $('#clear').css({'font-size': '35px'});
     }
     var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-    if (isChrome) {
+    if (isChrome and !isMobile) {
       $('#paint').css({'width': '400px','height': '400px'});
       $('#paint1').css({'width': '11.7%','height': '50%'});
       $('#paint2').css({'width': '11.7%','height': '125px'});
